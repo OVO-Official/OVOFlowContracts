@@ -1,6 +1,6 @@
-// import NonFungibleToken from "./NonFungibleToken.cdc"
-//Test Net
 import NonFungibleToken from 0xe80c67e389fccc73
+//Test Net
+// import NonFungibleToken from 0x0cd97d1704c9784d
 // NFTItem
 // NFT items for NFTItem!
 //
