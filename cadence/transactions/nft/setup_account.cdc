@@ -1,5 +1,8 @@
-import NonFungibleToken from 0xe80c67e389fccc73
-import NyatheesOVO from 0xe80c67e389fccc73
+// import NonFungibleToken from "../../contracts/NonFungibleToken.cdc"
+// import NyatheesOVO from "../../contracts/NyatheesOVO.cdc"
+
+import NonFungibleToken from 0xe07dd4765b2ede83
+import NyatheesOVO from 0xe07dd4765b2ede83
 
 // This transaction configures an account to hold Kitty Items.
 
