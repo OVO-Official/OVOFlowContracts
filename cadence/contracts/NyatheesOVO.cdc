@@ -1,6 +1,6 @@
-import NonFungibleToken from 0xe80c67e389fccc73
-//Test Net
-// import NonFungibleToken from 0x0cd97d1704c9784d
+// import NonFungibleToken from "./NonFungibleToken.cdc"
+// Test Net
+import NonFungibleToken from 0xe07dd4765b2ede83
 // NFTItem
 // NFT items for NFTItem!
 //
@@ -12,6 +12,8 @@ pub contract NyatheesOVO: NonFungibleToken {
     pub event Withdraw(id: UInt64, from: Address?)
     pub event Deposit(id: UInt64, to: Address?)
     pub event Minted(id: UInt64, metadata: {String:String})
+    pub event testEvent(message: String)
+    pub event MintedForMysteryBox(id: UInt64, uuid: UInt64, metadata: {String: String})
 
     // Named Paths
     //
@@ -19,6 +21,7 @@ pub contract NyatheesOVO: NonFungibleToken {
     pub let CollectionPublicPath: PublicPath
     pub let MinterStoragePath: StoragePath
     pub let CollectionPrivatePath: PrivatePath
+    pub let MinterPrivatePath: PrivatePath
 
     // totalSupply
     // The total number of NFTItem that have been minted
@@ -59,19 +62,19 @@ pub contract NyatheesOVO: NonFungibleToken {
             }
         }
     }
-
     // return the content for this NFT
     // only for mystery box
-    pub resource interface CollectionPrivate {
+    pub resource interface MinterPrivate {
 
-        access(account) fun mintNFTForMysterBox(receiver: &{NonFungibleToken.CollectionPublic}, metadata: {String:String})
+        pub fun mintNFTForMysterBox(receiver: &{NonFungibleToken.CollectionPublic}, metadata: {String:String})
 
     }
+
 
     // Collection
     // A collection of NFTItem NFTs owned by an account
     //
-    pub resource Collection: NFTCollectionPublic, CollectionPrivate, NonFungibleToken.Provider, NonFungibleToken.Receiver, NonFungibleToken.CollectionPublic {
+    pub resource Collection: NFTCollectionPublic, NonFungibleToken.Provider, NonFungibleToken.Receiver, NonFungibleToken.CollectionPublic {
         // dictionary of NFT conforming tokens
         // NFT is a resource type with an `UInt64` ID field
         //
@@ -137,17 +140,6 @@ pub contract NyatheesOVO: NonFungibleToken {
                 return nil
             }
         }
-
-        access(account) fun mintNFTForMysterBox(receiver: &{NonFungibleToken.CollectionPublic},
-                                                metadata: {String:String}){
-            emit Minted(id: NyatheesOVO.totalSupply, metadata: metadata)
-
-			// deposit it in the recipient's account using their reference
-			receiver.deposit(token: <-create NyatheesOVO.NFT(initID: NyatheesOVO.totalSupply, metadata: metadata))
-
-            NyatheesOVO.totalSupply = NyatheesOVO.totalSupply + (1 as UInt64)
-        }
-
         // destructor
         destroy() {
             destroy self.ownedNFTs
@@ -171,7 +163,7 @@ pub contract NyatheesOVO: NonFungibleToken {
     // Resource that an admin or something similar would own to be
     // able to mint new NFTs
     //
-	pub resource NFTMinter {
+	pub resource NFTMinter : MinterPrivate{
 
 		// mintNFT
         // Mints a new NFT with a new ID
@@ -186,6 +178,17 @@ pub contract NyatheesOVO: NonFungibleToken {
 
             emit Minted(id: NyatheesOVO.totalSupply, metadata: metadata)
 		}
+
+        pub fun mintNFTForMysterBox(receiver: &{NonFungibleToken.CollectionPublic},
+                                                metadata: {String:String}){
+
+			// deposit it in the recipient's account using their reference
+            var newNFT <-create NyatheesOVO.NFT(initID: NyatheesOVO.totalSupply, metadata: metadata)
+            emit MintedForMysteryBox(id: NyatheesOVO.totalSupply, uuid: newNFT.uuid, metadata: metadata)
+			receiver.deposit(token: <-newNFT)
+
+            NyatheesOVO.totalSupply = NyatheesOVO.totalSupply + (1 as UInt64)
+        }
 	}
 
     // fetch
@@ -212,6 +215,7 @@ pub contract NyatheesOVO: NonFungibleToken {
         self.CollectionPublicPath = /public/NyatheesOVOCollection
         self.MinterStoragePath = /storage/NyatheesOVOMinter
         self.CollectionPrivatePath = /private/NyatheesOVOMintForBox
+        self.MinterPrivatePath = /private/MinterForBox
 
         // Initialize the total supply
         self.totalSupply = 0
@@ -219,10 +223,10 @@ pub contract NyatheesOVO: NonFungibleToken {
         // Create a Minter resource and save it to storage
         let minter <- create NFTMinter()
         self.account.save(<-minter, to: self.MinterStoragePath)
+        self.account.link<&NyatheesOVO.NFTMinter>(self.MinterPrivatePath, target: self.MinterStoragePath)
 
         let collection <- create Collection()
         self.account.save(<-collection, to: self.CollectionStoragePath)
-        self.account.link<&NyatheesOVO.Collection{NyatheesOVO.CollectionPrivate}>(self.CollectionPrivatePath, target: self.CollectionStoragePath)
         // create a public capability for the collection
         self.account.link<&NyatheesOVO.Collection{NonFungibleToken.CollectionPublic, NyatheesOVO.NFTCollectionPublic}>(NyatheesOVO.CollectionPublicPath, target: NyatheesOVO.CollectionStoragePath)
         emit ContractInitialized()
