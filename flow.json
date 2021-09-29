@@ -8,7 +8,6 @@
 	"contracts": {
 		"NonFungibleToken": "./cadence/contracts/NonFungibleToken.cdc",
 		"FungibleToken":"./cadence/contracts/FungibleToken.cdc",
-		"FUSD":"./cadence/contracts/FUSD.cdc",
 		"NyatheesOVO":"./cadence/contracts/NyatheesOVO.cdc",
 		"MysteryBox":"./cadence/contracts/MysteryBox.cdc"
 	},
