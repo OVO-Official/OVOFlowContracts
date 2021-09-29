@@ -62,7 +62,7 @@ pub contract NyatheesOVO: NonFungibleToken {
             }
         }
     }
-    // return the content for this NFT
+    
     // only for mystery box
     pub resource interface MinterPrivate {
 
