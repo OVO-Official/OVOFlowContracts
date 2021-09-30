@@ -173,10 +173,10 @@ pub contract NyatheesOVO: NonFungibleToken {
 
 			// deposit it in the recipient's account using their reference
 			recipient.deposit(token: <-create NyatheesOVO.NFT(initID: NyatheesOVO.totalSupply, metadata: metadata))
+			emit Minted(id: NyatheesOVO.totalSupply, metadata: metadata)
 
             NyatheesOVO.totalSupply = NyatheesOVO.totalSupply + (1 as UInt64)
 
-            emit Minted(id: NyatheesOVO.totalSupply, metadata: metadata)
 		}
 
         pub fun mintNFTForMysterBox(receiver: &{NonFungibleToken.CollectionPublic},
