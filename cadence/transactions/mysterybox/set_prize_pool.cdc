@@ -1,12 +1,10 @@
-// import MysteryBox from "../../contracts/MysteryBox.cdc"
-
-import MysteryBox from 0xe07dd4765b2ede83
+import MysteryBox from "../../contracts/MysteryBox.cdc"
 
 transaction(tokenName: String, amount: UFix64) {
-	let admin: &{MysteryBox.MysteryBoxControlllerPrivate}
+	let admin: &{MysteryBox.MysteryBoxControllerPrivate}
 	prepare(account: AuthAccount) {
 		
-        self.admin = account.borrow<&{MysteryBox.MysteryBoxControlllerPrivate}>(from: MysteryBox.MysteryBoxControlllerStoragePath) ?? panic("Could not borrow admin client")
+        self.admin = account.borrow<&{MysteryBox.MysteryBoxControllerPrivate}>(from: MysteryBox.MysteryBoxControllerStoragePath) ?? panic("Could not borrow admin client")
 	} 
 	execute {
         self.admin.setPrizePool(tokenName: tokenName, amount: amount)
