@@ -6,10 +6,41 @@
 		}
 	},
 	"contracts": {
-		"NonFungibleToken": "./cadence/contracts/NonFungibleToken.cdc",
-		"FungibleToken":"./cadence/contracts/FungibleToken.cdc",
-		"NyatheesOVO":"./cadence/contracts/NyatheesOVO.cdc",
-		"MysteryBox":"./cadence/contracts/MysteryBox.cdc"
+		"NonFungibleToken": {
+			"source": "./cadence/contracts/NonFungibleToken.cdc",
+			"aliases": {
+				"testnet": "0xacf3dfa413e00f9f",
+				"mainnet": "0x5b551a067d5f57bb"
+			  }
+		},
+		"FungibleToken": {
+			"source": "./cadence/contracts/FungibleToken.cdc",
+			"aliases": {
+			  "testnet": "0x9a0766d93b6608b7",
+			  "mainnet": "0xf233dcee88fe0abe"
+			}
+		  },
+		"FUSD": {
+			"source": "./cadence/contracts/FUSD.cdc",
+			"aliases": {
+				"testnet": "e223d8a629e49c68",
+				"mainnet": "3c5959b568896393"
+			}
+		},
+		"NyatheesOVO": {
+			"source": "./cadence/contracts/NyatheesOVO.cdc",
+			"aliases": {
+				"testnet": "0xacf3dfa413e00f9f",
+				"mainnet": "0x5b551a067d5f57bb"
+			  }
+		},
+		"MysteryBox": {
+			"source": "./cadence/contracts/MysteryBox.cdc",
+			"aliases": {
+				"testnet": "0xacf3dfa413e00f9f",
+				"mainnet": "0x5b551a067d5f57bb"
+			  }
+		}
 	},
 	"networks": {
 		"emulator": "127.0.0.1:3569",
@@ -21,21 +52,21 @@
 			"address": "0xf8d6e0586b0a20c7",
 			"key": "f8e188e8af0b8b414be59c4a1a15cc666c898fb34d94156e9b51e18bfde754a5"
 		},
-		"test":{
-            "address":"0xe07dd4765b2ede83",
-            "key":"b7c6cd6ae67b08240ea79a2cb0cdfbded5990adefada6933afd531b80bbe2c2b"
+		"testnet-deployer":{
+            "address":"0xacf3dfa413e00f9f",
+            "key":"af253c1c83e0b09fd1fe053d1cc261e222a8ca599702c67d4e68dda0b5457bc1"
         },
 		"test2":{
-			"address":"0x041a6dab4ad4de5c",
-			"key":"82e5214f980a1233377fb6b6a7bb887ed317fac4535798c8dceefc38b4205bbe"
+			"address":"0xbaa7ba978ae405fe",
+			"key":"1a9bc330ea22a3b3200dc80432750cfd1774e6bb56c73cbaccd619af1db1beb6"
 		},
 		"test2-1":{
-			"address":"0x124e0898d3d0d43d",
-			"key":"d3119f32b229a80e78564be7a3fce1a8e2e72319498f7fc303369ef9e7415930"
+			"address":"0x5ec0034a9b1e0521",
+			"key":"6ae949f4b8b71d801da209443bff891d8c87b1b512e591541585e5d3bd5d7f93"
 		},
 		"test2-1-1":{
-			"address":"0xf629b145c22ad4e2",
-			"key":"8c2d653f61f988d4425c5e99fdd216b1576f340965c8ac37fd48a7e4e0c8c80f"
+			"address":"0x4d017f35e45b5dda",
+			"key":"e8724c7cb83d8802148d24e3706cf39eb1b37636a8ffaf14bd0a4ab0d61bf5e6"
 		}
 	},
 	"deployments": {
@@ -45,7 +76,7 @@
 			"MysteryBox"
 			]},
 		"testnet" :{
-			"test":[
+			"testnet-deployer":[
 				"NonFungibleToken",
 				"NyatheesOVO",
 				"MysteryBox"
