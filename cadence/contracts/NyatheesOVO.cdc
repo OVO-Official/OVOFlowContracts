@@ -1,8 +1,4 @@
-// import NonFungibleToken from "./NonFungibleToken.cdc"
-// Test Net
-import NonFungibleToken from 0xe07dd4765b2ede83
-// NFTItem
-// NFT items for NFTItem!
+import NonFungibleToken from "./NonFungibleToken.cdc"
 //
 pub contract NyatheesOVO: NonFungibleToken {
 
@@ -12,7 +8,6 @@ pub contract NyatheesOVO: NonFungibleToken {
     pub event Withdraw(id: UInt64, from: Address?)
     pub event Deposit(id: UInt64, to: Address?)
     pub event Minted(id: UInt64, metadata: {String:String})
-    pub event testEvent(message: String)
     pub event MintedForMysteryBox(id: UInt64, uuid: UInt64, metadata: {String: String})
 
     // Named Paths
@@ -34,8 +29,12 @@ pub contract NyatheesOVO: NonFungibleToken {
     pub resource NFT: NonFungibleToken.INFT {
         // The token's ID
         pub let id: UInt64
-        // The token's type, e.g. 3 == Hat
-        pub let metadata: {String:String} 
+        // The token's metadata
+        access(self) let metadata: {String: String}
+
+        pub fun getMetadata():{String: String} {
+            return self.metadata
+        }
 
         // initializer
         //
@@ -62,7 +61,7 @@ pub contract NyatheesOVO: NonFungibleToken {
             }
         }
     }
-    
+    // return the content for this NFT
     // only for mystery box
     pub resource interface MinterPrivate {
 
@@ -173,7 +172,8 @@ pub contract NyatheesOVO: NonFungibleToken {
 
 			// deposit it in the recipient's account using their reference
 			recipient.deposit(token: <-create NyatheesOVO.NFT(initID: NyatheesOVO.totalSupply, metadata: metadata))
-			emit Minted(id: NyatheesOVO.totalSupply, metadata: metadata)
+
+            emit Minted(id: NyatheesOVO.totalSupply, metadata: metadata)
 
             NyatheesOVO.totalSupply = NyatheesOVO.totalSupply + (1 as UInt64)
 

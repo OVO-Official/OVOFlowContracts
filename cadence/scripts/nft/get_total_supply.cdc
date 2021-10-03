@@ -1,5 +1,4 @@
-// import NyatheesOVO from "../../contracts/NyatheesOVO.cdc"
-import NyatheesOVO from 0xe07dd4765b2ede83
+import NyatheesOVO from "../../contracts/NyatheesOVO.cdc"
 
 // This scripts returns the number of KittyItems currently in existence.
 

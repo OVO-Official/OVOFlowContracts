@@ -1,17 +1,11 @@
-// import NonFungibleToken from "./NonFungibleToken.cdc"
-// import NyatheesOVO from "./NyatheesOVO.cdc"
+import NonFungibleToken from "./NonFungibleToken.cdc"
+import NyatheesOVO from "./NyatheesOVO.cdc"
 
-import NonFungibleToken from 0xe07dd4765b2ede83
-import NyatheesOVO from 0xe07dd4765b2ede83
+// import NonFungibleToken from 0xacf3dfa413e00f9f
+// import NyatheesOVO from 0xacf3dfa413e00f9f
 
-// import NonFungibleToken from 0xc7c05e00a930fd33
-// import NyatheesOVO from 0xc7c05e00a930fd33
-
-// import FungibleToken from "./FungibleToken.cdc"
-// import FUSD from "./FUSD.cdc"
-// Testnet
-import FungibleToken from 0x9a0766d93b6608b7
-import FUSD from 0xe223d8a629e49c68
+import FungibleToken from "./FungibleToken.cdc"
+import FUSD from "./FUSD.cdc"
 
 pub contract MysteryBox {
 
@@ -66,9 +60,9 @@ pub contract MysteryBox {
     pub event nftProviderResourcesDestroyed()
 
     //path
-    pub let MysteryBoxControlllerPublicPath: PublicPath
-    pub let MysteryBoxControlllerPrivatePath: PrivatePath
-    pub let MysteryBoxControlllerStoragePath: StoragePath
+    pub let MysteryBoxControllerPublicPath: PublicPath
+    pub let MysteryBoxControllerPrivatePath: PrivatePath
+    pub let MysteryBoxControllerStoragePath: StoragePath
 
     //const
     pub let ZERO_ADDRESS: Address
@@ -128,7 +122,7 @@ pub contract MysteryBox {
     //how many mystery box were sold
     access(self) var totalSupply: UInt64                                                                                                                                                                                                                                 
     
-    pub resource interface MysteryBoxControlllerPrivate{
+    pub resource interface MysteryBoxControllerPrivate{
 
         // functions for admin account
         // set Mystery Box types and stocks
@@ -174,7 +168,7 @@ pub contract MysteryBox {
                              payer: Address)
     }
 
-    pub resource interface MysteryBoxControlllerPublic{
+    pub resource interface MysteryBoxControllerPublic{
         //public functions to all users
         //buy mystery box
         //this function will call checkInviteRelationAndSaveIt to check invitation relationship
@@ -195,7 +189,7 @@ pub contract MysteryBox {
         pub fun getMysteryBoxTypeItem(typeId: UInt64): MysteryBox.MysteryBoxType?
     }
 
-    pub resource MysteryBoxControlller: MysteryBoxControlllerPrivate, MysteryBoxControlllerPublic{
+    pub resource MysteryBoxController: MysteryBoxControllerPrivate, MysteryBoxControllerPublic{
 
         // //capability to transfer NFT to users when they buy mystery box
         // access(contract) var nftProviderResources: @[NFTProvider]
@@ -225,7 +219,7 @@ pub contract MysteryBox {
             // calculate totalPrice, if user buy 10 mysterybox, 90% discount
             var totalPrice = MysteryBox.mysteryBoxTypeList[mysteryBoxTypeId]!.unitPrice * UFix64(mysteryBoxAmount)
             if(mysteryBoxAmount == MysteryBox.maxMysteryBoxToBuy){
-                totalPrice = MysteryBox.mysteryBoxTypeList[mysteryBoxTypeId]!.unitPrice * UFix64(mysteryBoxAmount) * 90000.0 / 100000.0
+                totalPrice = MysteryBox.mysteryBoxTypeList[mysteryBoxTypeId]!.unitPrice * UFix64(mysteryBoxAmount) * 90000000.0 / 100000000.0
             }
 
             assert(totalPrice >= buyerTokenVault.balance, message: "not enough balance to buy mystery box")
@@ -260,8 +254,8 @@ pub contract MysteryBox {
                                 unitPrice: MysteryBox.mysteryBoxTypeList[mysteryBoxTypeId]!.unitPrice,
                                 tokenIds: saledTokenIds,
                                 poolTokenName: tokenName,
-                                amountAddToPool: totalPrice * 50000.0 / 1000000.0)
-            // emit UpdatePrizePool(tokenName: tokenName, amount: totalPrice * 0.05)
+                                amountAddToPool: totalPrice * 50000000.0 / 1000000000.0)
+            // emit UpdatePrizePool(tokenName: tokenName, amount: totalPrice * 50000000.0 / 1000000000.0)
 
         }
 
@@ -286,9 +280,9 @@ pub contract MysteryBox {
                     ?? panic("Unable to borrow receiver fusd reference")
 
                 // referrer get commission of 20% of total price
-                var refTempVault <- buyerTokenVault.withdraw(amount:totalPrice * 20000.0 / 100000.0)
+                var refTempVault <- buyerTokenVault.withdraw(amount:totalPrice * 20000000.0 / 100000000.0)
                 referrerCap.deposit(from: <-refTempVault)
-                emit RebateToUser(token: tokenName, user: referrerAddr, amount: totalPrice * 20000.0 / 100000.0)
+                emit RebateToUser(token: tokenName, user: referrerAddr, amount: totalPrice * 20000000.0 / 100000000.0)
 
                 // check the referrer exist or not
                 // if referrer exist, record the promote amount to the referrer
@@ -306,9 +300,9 @@ pub contract MysteryBox {
                     var tempEarned = MysteryBox.accountList[referrerAddr]!.earned
                     if (tempEarned[tokenName] != nil){
                         var earned = tempEarned[tokenName]!
-                        tempEarned[tokenName] = earned + totalPrice * 20000.0 / 100000.0
+                        tempEarned[tokenName] = earned + totalPrice * 20000000.0 / 100000000.0
                     } else {
-                        tempEarned[tokenName] = totalPrice * 20000.0 / 100000.0
+                        tempEarned[tokenName] = totalPrice * 20000000.0 / 100000000.0
                     }
                     MysteryBox.accountList[referrerAddr] = MysteryBox.accountItem(referrerAddr: MysteryBox.accountList[referrerAddr]!.referrerAddr,
                                                                             active: MysteryBox.accountList[referrerAddr]!.active,
@@ -326,9 +320,9 @@ pub contract MysteryBox {
                         ?? panic("Unable to borrow receiver reference")
 
                         // referrer`s referrer get commission of 5% of total price
-                        var lrefTempVault <- buyerTokenVault.withdraw(amount:totalPrice * 50000.0 / 1000000.0)
+                        var lrefTempVault <- buyerTokenVault.withdraw(amount:totalPrice * 50000000.0 / 1000000000.0)
                         lreferrerCap.deposit(from: <-lrefTempVault)
-                        emit RebateToUser(token: tokenName, user: lreferrerAddr, amount: totalPrice * 50000.0 / 1000000.0)
+                        emit RebateToUser(token: tokenName, user: lreferrerAddr, amount: totalPrice * 50000000.0 / 1000000000.0)
 
                         // check the referrer`s referrer exist or not
                         // if referrer`s referrer exist, record the promote amount to the referrer`s referrer
@@ -344,9 +338,9 @@ pub contract MysteryBox {
                             var tempEarned = MysteryBox.accountList[lreferrerAddr]!.earned
                             if (tempEarned[tokenName] != nil){
                                 var earned = tempEarned[tokenName]!
-                                tempEarned[tokenName] = earned + totalPrice * 50000.0 / 1000000.0
+                                tempEarned[tokenName] = earned + totalPrice * 50000000.0 / 1000000000.0
                             } else {
-                                tempEarned[tokenName] = totalPrice * 50000.0 / 1000000.0
+                                tempEarned[tokenName] = totalPrice * 50000000.0 / 1000000000.0
                             }
                             MysteryBox.accountList[lreferrerAddr] = MysteryBox.accountItem(referrerAddr: MysteryBox.accountList[lreferrerAddr]!.referrerAddr,
                                                                                     active: MysteryBox.accountList[lreferrerAddr]!.active,
@@ -360,9 +354,9 @@ pub contract MysteryBox {
 
             if (MysteryBox.prizePool[tokenName] != nil){
                 var tempPoolBalance = MysteryBox.prizePool[tokenName]!
-                MysteryBox.prizePool[tokenName] = tempPoolBalance + totalPrice * 50000.0 / 1000000.0
+                MysteryBox.prizePool[tokenName] = tempPoolBalance + totalPrice * 50000000.0 / 1000000000.0
             } else {
-                MysteryBox.prizePool[tokenName] = totalPrice * 50000.0 / 1000000.0
+                MysteryBox.prizePool[tokenName] = totalPrice * 50000000.0 / 1000000000.0
             }
 
             return <-buyerTokenVault
@@ -421,10 +415,9 @@ pub contract MysteryBox {
             //send NFTs to the buyer
             var saledTokenIds: [UInt64] = []
             var tempMysteryBoxAmount = mysteryBoxAmount
+            var tempNftMintCap = self.nftProviderCap!.borrow()!
             while tempMysteryBoxAmount > 0 {
-                //self.nftProviderCap!.borrow() ?? panic("Unable to borrow NyatheesOVO Minter!")
-                // self.nftProviderCap!.borrow()!.mintNFTForMysterBox(receiver: receiverCap, metadata: {"url":"https://www.ovo.space/api/v1/metadata/get-metadata?tokenId="})
-                self.nftProviderCap!.borrow()!.mintNFTForMysterBox(receiver: receiverCap, metadata: {"url":"https://www.ovo.space/api/v1/metadata/get-metadata?tokenId="})
+                tempNftMintCap.mintNFTForMysterBox(receiver: receiverCap, metadata: {"url":"https://www.ovo.space/api/v1/metadata/get-metadata?tokenId="})
                 saledTokenIds.append(NyatheesOVO.totalSupply)
                 stock = stock - 1
                 tempMysteryBoxAmount = tempMysteryBoxAmount - 1
@@ -480,10 +473,10 @@ pub contract MysteryBox {
                                         stock: UInt64,
                                         unitPrice: UFix64){
             pre {
-                typeId > 0 : "MysteryBox type shoud > 0"
+                typeId > 0 : "MysteryBox type should > 0"
                 describe != "" : "MysteryBox describe can not be empty"
-                stock >= 0 : "MysteryBox stock shoud >= 0"
-                unitPrice > 0.0 : "MysteryBox type shoud > 0.0"
+                stock >= 0 : "MysteryBox stock should >= 0"
+                unitPrice > 0.0 : "MysteryBox type should > 0.0"
             }
             MysteryBox.mysteryBoxTypeList[typeId] = MysteryBoxType(typeId: typeId,
                                                                    describe: describe,
@@ -500,8 +493,8 @@ pub contract MysteryBox {
 
         pub fun setPrizePool(tokenName: String, amount: UFix64){
             pre {
-                tokenName != "" : "MysteryBox type shoud > 0"
-                amount >= 0.0 : "MysteryBox type shoud > 0.0"
+                tokenName != "" : "MysteryBox type should > 0"
+                amount >= 0.0 : "amount should >= 0.0"
             }
             MysteryBox.prizePool[tokenName] = amount
             emit UpdatePrizePool(tokenName: tokenName, amount: amount)
@@ -549,16 +542,16 @@ pub contract MysteryBox {
         self.accountList = {}
         self.mysteryBoxTypeList = {}
         self.totalSupply = 0 as UInt64
-        self.MysteryBoxControlllerPublicPath = /public/MysteryBoxControlllerPublic
-        self.MysteryBoxControlllerPrivatePath = /private/MysteryBoxControlllerPrivate
-        self.MysteryBoxControlllerStoragePath = /storage/MysteryBoxControlller
+        self.MysteryBoxControllerPublicPath = /public/MysteryBoxControllerPublic
+        self.MysteryBoxControllerPrivatePath = /private/MysteryBoxControllerPrivate
+        self.MysteryBoxControllerStoragePath = /storage/MysteryBoxController
         self.ZERO_ADDRESS = 0x0000000000000000
         self.maxMysteryBoxToBuy = 10
 
-        let mysteryBoxController <- create MysteryBoxControlller()
-        self.account.save(<-mysteryBoxController, to: self.MysteryBoxControlllerStoragePath)
-        self.account.link<&MysteryBox.MysteryBoxControlller{MysteryBoxControlllerPrivate}>(self.MysteryBoxControlllerPrivatePath, target: self.MysteryBoxControlllerStoragePath)
-        self.account.link<&MysteryBox.MysteryBoxControlller{MysteryBoxControlllerPublic}>(self.MysteryBoxControlllerPublicPath, target: self.MysteryBoxControlllerStoragePath)
+        let mysteryBoxController <- create MysteryBoxController()
+        self.account.save(<-mysteryBoxController, to: self.MysteryBoxControllerStoragePath)
+        self.account.link<&MysteryBox.MysteryBoxController{MysteryBoxControllerPrivate}>(self.MysteryBoxControllerPrivatePath, target: self.MysteryBoxControllerStoragePath)
+        self.account.link<&MysteryBox.MysteryBoxController{MysteryBoxControllerPublic}>(self.MysteryBoxControllerPublicPath, target: self.MysteryBoxControllerStoragePath)
     }
 
 }
