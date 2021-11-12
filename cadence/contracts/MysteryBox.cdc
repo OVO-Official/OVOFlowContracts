@@ -1,9 +1,6 @@
 import NonFungibleToken from "./NonFungibleToken.cdc"
 import NyatheesOVO from "./NyatheesOVO.cdc"
 
-// import NonFungibleToken from 0xacf3dfa413e00f9f
-// import NyatheesOVO from 0xacf3dfa413e00f9f
-
 import FungibleToken from "./FungibleToken.cdc"
 import FUSD from "./FUSD.cdc"
 

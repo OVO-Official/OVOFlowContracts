@@ -9,8 +9,8 @@
 		"NonFungibleToken": {
 			"source": "./cadence/contracts/NonFungibleToken.cdc",
 			"aliases": {
-				"testnet": "0xacf3dfa413e00f9f",
-				"mainnet": "0x5b551a067d5f57bb"
+				"testnet": "0x631e88ae7f1d7c20",
+				"mainnet": "0x1d7e57aa55817448"
 			  }
 		},
 		"FungibleToken": {
@@ -30,14 +30,21 @@
 		"NyatheesOVO": {
 			"source": "./cadence/contracts/NyatheesOVO.cdc",
 			"aliases": {
-				"testnet": "0xacf3dfa413e00f9f",
+				"testnet": "0xc3cb13a49438c846",
 				"mainnet": "0x5b551a067d5f57bb"
 			  }
 		},
 		"MysteryBox": {
 			"source": "./cadence/contracts/MysteryBox.cdc",
 			"aliases": {
-				"testnet": "0xacf3dfa413e00f9f",
+				"testnet": "0xc3cb13a49438c846",
+				"mainnet": "0x5b551a067d5f57bb"
+			  }
+		},
+		"OVOMarketPlace": {
+			"source": "./cadence/contracts/OVOMarketPlace.cdc",
+			"aliases": {
+				"testnet": "0xc3cb13a49438c846",
 				"mainnet": "0x5b551a067d5f57bb"
 			  }
 		}
@@ -53,20 +60,20 @@
 			"key": "f8e188e8af0b8b414be59c4a1a15cc666c898fb34d94156e9b51e18bfde754a5"
 		},
 		"testnet-deployer":{
-            "address":"0xacf3dfa413e00f9f",
-            "key":"af253c1c83e0b09fd1fe053d1cc261e222a8ca599702c67d4e68dda0b5457bc1"
+            "address":"0xc3cb13a49438c846",
+            "key":"fe5c409b137ecd8713a1bf2378b0138fc18ce436e5f3f9354c892c93f02d197c"
         },
 		"test2":{
-			"address":"0xbaa7ba978ae405fe",
-			"key":"1a9bc330ea22a3b3200dc80432750cfd1774e6bb56c73cbaccd619af1db1beb6"
+			"address":"0xc8e1213d58bdb66f",
+			"key":"1cb780cc32645da9b37d086f6b5d410658f1facb67b58e965a290681a43a5bde"
 		},
 		"test2-1":{
-			"address":"0x5ec0034a9b1e0521",
-			"key":"6ae949f4b8b71d801da209443bff891d8c87b1b512e591541585e5d3bd5d7f93"
+			"address":"0x032ed993b4398d9f",
+			"key":"25181cbbd231cfa3d0950eb44d3fe09548c7ca4a93430a49832892d256b4ff26"
 		},
 		"test2-1-1":{
-			"address":"0x4d017f35e45b5dda",
-			"key":"e8724c7cb83d8802148d24e3706cf39eb1b37636a8ffaf14bd0a4ab0d61bf5e6"
+			"address":"0xec6352d76946f369",
+			"key":"b2d813956b0df55b616790637fef0e4c5e80b815484a9c6f450517b8964248ca"
 		}
 	},
 	"deployments": {
@@ -77,9 +84,9 @@
 			]},
 		"testnet" :{
 			"testnet-deployer":[
-				"NonFungibleToken",
 				"NyatheesOVO",
-				"MysteryBox"
+				"MysteryBox",
+				"OVOMarketPlace"
 			]
 		}
 	}
