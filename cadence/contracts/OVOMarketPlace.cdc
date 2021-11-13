@@ -211,9 +211,6 @@ pub contract OVOMarketPlace{
                                                                 tokenId: tokenId, sellerAddr: sellerAddr, buyerAddr: nil,
                                                                 tokenName: tokenName, totalPrice: totalPrice,
                                                                 createTime: getCurrentBlock().timestamp, soldTime: 0.0))
-            // check NFT owner
-            var sellerNFTCap = getAccount(sellerAddr).getCapability(NyatheesOVO.CollectionPublicPath).borrow<&{NyatheesOVO.NFTCollectionPublic}>() 
-                                                        ?? panic("Unable to borrow NyatheesOVO Collection of the seller!")
             if (!sellerNFTProvider.idExists(id: tokenId)){
 			    panic("The NFT not belongs to you")
 		    }

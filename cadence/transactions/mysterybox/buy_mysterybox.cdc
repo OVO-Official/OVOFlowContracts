@@ -12,7 +12,7 @@ transaction(mysteryBoxTypeId: UInt64, referrerAddr: Address, tokenName: String, 
         self.buyerAddress = account.address
         let mainFUSDVault = account.borrow<&FUSD.Vault>(from: /storage/fusdVault)
             ?? panic("Cannot borrow FUSD vault from account storage")
-        var ownerAccount = getAccount(Address(0xc3cb13a49438c846))
+        var ownerAccount = getAccount(Address(0xb8c9719934dc4ff1))
 
         self.mysteryboxCap = ownerAccount.getCapability(MysteryBox.MysteryBoxControllerPublicPath)!
                                                         .borrow<&{MysteryBox.MysteryBoxControllerPublic}>()?? panic("Unable to borrow MysteryBox Public!")
