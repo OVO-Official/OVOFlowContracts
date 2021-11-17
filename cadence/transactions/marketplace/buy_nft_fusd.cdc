@@ -16,7 +16,7 @@ transaction (orderId: UInt64, tokenName: String, totalPrice: UFix64) {
 		}
 		self.buyerAddr = acct.address
 		self.buyerTokenVault <- vaultRef.withdraw(amount: totalPrice)
-		var adminAccount = getAccount(Address(0xb8c9719934dc4ff1))
+		var adminAccount = getAccount(Address(0xd0da13029b214ac5))
 		self.adminCap = adminAccount.getCapability(OVOMarketPlace.MarketPublicPath)
 											.borrow<&{OVOMarketPlace.MarketPublic}>() ?? panic("Can not borrow market cap")
 	}

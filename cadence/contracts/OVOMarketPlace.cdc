@@ -44,7 +44,8 @@ pub contract OVOMarketPlace{
         }
     }
 
-    pub event SellNFT(sellerAddr: Address, orderId: UInt64, tokenId: UInt64, totalPrice: UFix64, tokenName: String, createTime: UFix64)
+    pub event SellNFT(sellerAddr: Address, orderId: UInt64, tokenId: UInt64, totalPrice: UFix64, 
+                     buyerFee: UFix64, sellerFee: UFix64, tokenName: String, createTime: UFix64)
 	pub event BuyNFT(buyerAddr: Address, orderId: UInt64, tokenId: UInt64, totalPrice: UFix64,
                     buyerFee: UFix64, sellerFee: UFix64, createTime: UFix64, 
                     soldTime: UFix64)
@@ -205,6 +206,8 @@ pub contract OVOMarketPlace{
                 totalPrice > 0.0 : "Total Price should > 0.0"
                 sellerNFTProvider != nil : "NFT Provider can not be nil"
                 tokenId >= 0 : "Wrong Token Id"
+                self.transactionFeeList["FUSD_SellerFee"] != nil : "Seller Fee not set"
+                self.transactionFeeList["FUSD_BuyerFee"] != nil : "buyer Fee not set"
             }
 
             self.orderList.insert(key: self.orderId, orderData(orderId: self.orderId, orderStatue: orderStatues.onSell,
@@ -221,12 +224,20 @@ pub contract OVOMarketPlace{
             if (metadata != nil && metadata["sign"] != nil && metadata["sign"] == "1"){
                 panic("You can not sell this NFT")
             }
+
+            // get transaction fee for seller and buyer
+            var sellerFeePersentage = self.transactionFeeList[tokenName.concat("_SellerFee")]!
+            var buyerFeePersentage = self.transactionFeeList[tokenName.concat("_BuyerFee")]!
+            if (sellerFeePersentage == nil || buyerFeePersentage == nil){
+                panic("Fees not found")
+            }
             
             self.onSellNFTList[self.orderId] <-!sellerNFTProvider.withdraw(withdrawID: tokenId)
 
 
             emit SellNFT(sellerAddr: sellerAddr, orderId: self.orderId, tokenId: tokenId, 
-                         totalPrice: totalPrice, tokenName: tokenName, createTime: getCurrentBlock().timestamp)
+                         totalPrice: totalPrice, buyerFee: buyerFeePersentage, sellerFee: sellerFeePersentage,
+                          tokenName: tokenName, createTime: getCurrentBlock().timestamp)
 
             self.orderId = self.orderId + 1
 

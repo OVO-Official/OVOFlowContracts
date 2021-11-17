@@ -30,21 +30,21 @@
 		"NyatheesOVO": {
 			"source": "./cadence/contracts/NyatheesOVO.cdc",
 			"aliases": {
-				"testnet": "0xb8c9719934dc4ff1",
+				"testnet": "0xd0da13029b214ac5",
 				"mainnet": "0x5b551a067d5f57bb"
 			  }
 		},
 		"MysteryBox": {
 			"source": "./cadence/contracts/MysteryBox.cdc",
 			"aliases": {
-				"testnet": "0xb8c9719934dc4ff1",
+				"testnet": "0xd0da13029b214ac5",
 				"mainnet": "0x5b551a067d5f57bb"
 			  }
 		},
 		"OVOMarketPlace": {
 			"source": "./cadence/contracts/OVOMarketPlace.cdc",
 			"aliases": {
-				"testnet": "0xb8c9719934dc4ff1",
+				"testnet": "0xd0da13029b214ac5",
 				"mainnet": "0x5b551a067d5f57bb"
 			  }
 		}
@@ -60,20 +60,20 @@
 			"key": "f8e188e8af0b8b414be59c4a1a15cc666c898fb34d94156e9b51e18bfde754a5"
 		},
 		"testnet-deployer":{
-            "address":"0xb8c9719934dc4ff1",
-            "key":"b471a52769952abc068a38cf2daf08c29759fc2071ca129ed4a007c7ea27e0a7"
+            "address":"0xd0da13029b214ac5",
+            "key":"55807d3634adfeef5238af19868bcd093f7ea3e2ea28ecc31fab1f7341b00d9d"
         },
 		"test2":{
-			"address":"0x5caec84425264f2e",
-			"key":"39a8735af41d037654c23e29670fe07bf5264ad8dc9eafeed300d071099f9f75"
+			"address":"0x34bdaadf8adb4a1a",
+			"key":"b3d3167d5fcaaab43864b8447c63ac64118527853bdc6291c616ea48ee2597cb"
 		},
 		"test2-1":{
-			"address":"0x050c683bc842ffc9",
-			"key":"4b56458e4157a853e43eb3e372d74b999dcbe154742bdca1cad2199dafdcf244"
+			"address":"0xd93aad3d2480f040",
+			"key":"f42c5f7a26e32e8a3e81f97af61f045e337f1a6c308a8be4d4830ee7b2417c4a"
 		},
 		"test2-1-1":{
-			"address":"0xf9809f006a78d9c4",
-			"key":"a2966b9bcef90feb8510468bdef0cf6a4ff1b8edface74e20fc8e6c27da07ef7"
+			"address":"0x3d5d14e0357af09f",
+			"key":"20b1f4c4b38926ae0ab38f3a77e61c51c1466b013b3b27655828fa2c82b4070e"
 		}
 	},
 	"deployments": {

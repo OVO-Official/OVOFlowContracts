@@ -1,7 +1,7 @@
 import OVOMarketPlace from "../../contracts/OVOMarketPlace.cdc"
 
 pub fun main():Int {
-	let account = getAccount(0xb8c9719934dc4ff1)
+	let account = getAccount(0xd0da13029b214ac5)
 	let cap = account
 	.getCapability<&{OVOMarketPlace.MarketPublic}>(OVOMarketPlace.MarketPublicPath)
 	.borrow()?? panic("Can not borrow market cap!")
