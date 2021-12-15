@@ -31,21 +31,21 @@
 			"source": "./cadence/contracts/NyatheesOVO.cdc",
 			"aliases": {
 				"testnet": "0xd0da13029b214ac5",
-				"mainnet": "0x5b551a067d5f57bb"
+				"mainnet": "0x75e0b6de94eb05d0"
 			  }
 		},
 		"MysteryBox": {
 			"source": "./cadence/contracts/MysteryBox.cdc",
 			"aliases": {
 				"testnet": "0xd0da13029b214ac5",
-				"mainnet": "0x5b551a067d5f57bb"
+				"mainnet": "0x75e0b6de94eb05d0"
 			  }
 		},
 		"OVOMarketPlace": {
 			"source": "./cadence/contracts/OVOMarketPlace.cdc",
 			"aliases": {
 				"testnet": "0xd0da13029b214ac5",
-				"mainnet": "0x5b551a067d5f57bb"
+				"mainnet": "0x75e0b6de94eb05d0"
 			  }
 		}
 	},
